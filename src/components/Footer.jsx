@@ -4,7 +4,7 @@ import { FaPaw } from 'react-icons/fa'
 function Footer() {
   return (
     <footer className="bg-emerald-600 dark:bg-gray-950 text-white py-12 px-8">
-      <div className="max-w-5xl mx-auto grid grid-cols-3 gap-8">
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
         <div>
           <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
             <FaPaw /> DVRVET
