@@ -15,20 +15,20 @@ function Appointments() {
   }
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-8">
+    <div className="bg-gray-50 dark:bg-gray-900 min-h-screen p-4 md:p-8">
       <div className="max-w-5xl mx-auto">
 
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 dark:text-white">Programările mele</h1>
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Programările mele</h1>
             <p className="text-gray-500 dark:text-gray-400 mt-1">Istoricul tuturor programărilor</p>
           </div>
-          <button className="bg-emerald-500 text-white px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-emerald-600">
-            <FaPlus /> Programare nouă
+          <button className="bg-emerald-500 text-white px-4 md:px-6 py-2 rounded-full font-semibold flex items-center gap-2 hover:bg-emerald-600 text-sm md:text-base">
+            <FaPlus /> <span className="hidden md:inline">Programare nouă</span><span className="md:hidden">Nouă</span>
           </button>
         </div>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
+        <div className="hidden md:block bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700">
           <table className="w-full">
             <thead>
               <tr className="text-left text-gray-500 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-gray-700">
@@ -46,10 +46,7 @@ function Appointments() {
                   <td className="p-4">
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
-                        {app.petType === 'dog'
-                          ? <FaDog className="text-emerald-500" />
-                          : <FaCat className="text-emerald-500" />
-                        }
+                        {app.petType === 'dog' ? <FaDog className="text-emerald-500" /> : <FaCat className="text-emerald-500" />}
                       </div>
                       <span className="font-medium">{app.pet}</span>
                     </div>
@@ -67,6 +64,26 @@ function Appointments() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        <div className="md:hidden space-y-4">
+          {appointments.map(app => (
+            <div key={app.id} className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-gray-700">
+              <div className="flex justify-between items-start mb-2">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
+                    {app.petType === 'dog' ? <FaDog className="text-emerald-500" /> : <FaCat className="text-emerald-500" />}
+                  </div>
+                  <p className="font-semibold text-gray-800 dark:text-white">{app.pet}</p>
+                </div>
+                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${statusColors[app.status]}`}>
+                  {app.status}
+                </span>
+              </div>
+              <p className="text-gray-500 dark:text-gray-400 text-sm ml-12">{app.service} • {app.doctor}</p>
+              <p className="text-gray-500 dark:text-gray-400 text-sm ml-12">{app.date} • {app.time}</p>
+            </div>
+          ))}
         </div>
 
       </div>

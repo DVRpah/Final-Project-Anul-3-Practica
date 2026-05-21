@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useApp } from '../context/AppContext'
+import translations from '../translations'
 
 function Login() {
+  const { language } = useApp()
+  const t = translations[language]
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2 text-center">Bună ziua!</h2>
-        <p className="text-gray-500 dark:text-gray-400 text-center mb-8">Introduceți datele pentru a vă autentifica</p>
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2 text-center">{t.loginTitle}</h2>
+        <p className="text-gray-500 dark:text-gray-400 text-center mb-8">{t.loginDesc}</p>
 
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Email</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.loginEmail}</label>
           <input
             type="email"
             placeholder="exemplu@email.com"
@@ -17,7 +22,7 @@ function Login() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Parolă</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.loginPassword}</label>
           <input
             type="password"
             placeholder="••••••••"
@@ -26,13 +31,13 @@ function Login() {
         </div>
 
         <button className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600">
-          Autentificare
+          {t.loginBtn}
         </button>
 
         <p className="text-center text-gray-500 dark:text-gray-400 mt-4">
-          Nu ai cont?{' '}
+          {t.loginNoAccount}{' '}
           <Link to="/register" className="text-emerald-600 font-semibold hover:underline">
-            Înregistrează-te
+            {t.loginRegisterLink}
           </Link>
         </p>
       </div>

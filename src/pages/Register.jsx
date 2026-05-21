@@ -1,14 +1,19 @@
 import { Link } from 'react-router-dom'
+import { useApp } from '../context/AppContext'
+import translations from '../translations'
 
 function Register() {
+  const { language } = useApp()
+  const t = translations[language]
+
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center p-4">
       <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-8 w-full max-w-md">
-        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2 text-center">Creați un cont</h2>
-        <p className="text-gray-500 dark:text-gray-400 text-center mb-8">Înregistrați-vă pentru a face programări</p>
+        <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2 text-center">{t.registerTitle}</h2>
+        <p className="text-gray-500 dark:text-gray-400 text-center mb-8">{t.registerDesc}</p>
 
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Nume</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.registerName}</label>
           <input
             type="text"
             placeholder="Dan Vrancean"
@@ -17,7 +22,7 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Email</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.registerEmail}</label>
           <input
             type="email"
             placeholder="exemplu@email.com"
@@ -26,7 +31,7 @@ function Register() {
         </div>
 
         <div className="mb-4">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Parolă</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.registerPassword}</label>
           <input
             type="password"
             placeholder="••••••••"
@@ -35,7 +40,7 @@ function Register() {
         </div>
 
         <div className="mb-6">
-          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Confirmă parola</label>
+          <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.registerConfirm}</label>
           <input
             type="password"
             placeholder="••••••••"
@@ -44,13 +49,13 @@ function Register() {
         </div>
 
         <button className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600">
-          Înregistrare
+          {t.registerBtn}
         </button>
 
         <p className="text-center text-gray-500 dark:text-gray-400 mt-4">
-          Ai deja cont?{' '}
+          {t.registerHaveAccount}{' '}
           <Link to="/login" className="text-emerald-600 font-semibold hover:underline">
-            Autentifică-te
+            {t.registerLoginLink}
           </Link>
         </p>
       </div>
