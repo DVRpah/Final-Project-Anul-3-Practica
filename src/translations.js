@@ -68,6 +68,9 @@ const translations = {
     registerBtn: 'Înregistrare',
     registerHaveAccount: 'Ai deja cont?',
     registerLoginLink: 'Autentifică-te',
+    footerDesc: 'Clinica veterinară unde animalele voastre sunt pe primul loc.',
+    footerNav: 'Navigare',
+    footerContact: 'Contact',
   },
   ru: {
     home: 'Главная',
@@ -138,6 +141,9 @@ const translations = {
     registerBtn: 'Регистрация',
     registerHaveAccount: 'Уже есть аккаунт?',
     registerLoginLink: 'Войти',
+    footerDesc: 'Ветеринарная клиника, где ваши животные на первом месте.',
+    footerNav: 'Навигация',
+    footerContact: 'Контакт',
   },
   en: {
     home: 'Home',
@@ -208,6 +214,9 @@ const translations = {
     registerBtn: 'Register',
     registerHaveAccount: 'Already have an account?',
     registerLoginLink: 'Login',
+    footerDesc: 'The veterinary clinic where your animals come first.',
+    footerNav: 'Navigation',
+    footerContact: 'Contact',
   }
 }
 
