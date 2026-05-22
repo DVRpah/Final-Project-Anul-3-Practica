@@ -34,6 +34,11 @@ function Navbar() {
             <>
               <Link to="/dashboard" className="hover:text-emerald-200 dark:hover:text-emerald-400">Dashboard</Link>
               <Link to="/appointments" className="hover:text-emerald-200 dark:hover:text-emerald-400">Programări</Link>
+              {user.role === 'admin' && (
+              <Link to="/admin" className="bg-emerald-700 dark:bg-emerald-600 text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-800 text-sm">
+                Admin
+              </Link>
+                )}
               <span className="text-emerald-200 text-sm">Bună, {user.firstName}!</span>
               <button
                 onClick={handleLogout}
@@ -91,6 +96,11 @@ function Navbar() {
             <>
               <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">Dashboard</Link>
               <Link to="/appointments" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">Programări</Link>
+              {user.role === 'admin' && (
+              <Link to="/admin" onClick={() => setMenuOpen(false)} className="bg-emerald-700 text-white px-4 py-1 rounded-full font-semibold text-center">
+               Admin
+              </Link>
+                  )}
               <button onClick={handleLogout} className="bg-white text-emerald-500 px-4 py-1 rounded-full font-semibold text-left flex items-center gap-2">
                 <FaSignOutAlt /> Logout
               </button>
