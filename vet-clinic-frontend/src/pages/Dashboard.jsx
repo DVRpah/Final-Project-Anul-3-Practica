@@ -3,6 +3,7 @@ import { FaDog, FaCat, FaCalendarAlt, FaPlus, FaTimes } from 'react-icons/fa'
 import { petsService, appointmentsService } from '../services/api'
 import { useApp } from '../context/AppContext'
 import translations from '../translations'
+import { Link } from 'react-router-dom'
 
 function Dashboard() {
   const user = JSON.parse(localStorage.getItem('user') || '{}')
@@ -67,7 +68,7 @@ function Dashboard() {
 
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 dark:text-white">
-            {t.dashboardTitle}, {user.firstName}! 👋
+            {t.dashboardTitle}, {user.firstName}! 
           </h1>
           <p className="text-gray-500 dark:text-gray-400 mt-1">{t.dashboardDesc}</p>
         </div>
@@ -134,9 +135,9 @@ function Dashboard() {
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-bold text-gray-800 dark:text-white">{t.dashboardMyAppointments}</h2>
-              <button className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1 hover:bg-emerald-600">
+              <Link to="/appointments" className="bg-emerald-500 text-white px-3 py-1 rounded-full text-sm flex items-center gap-1 hover:bg-emerald-600">
                 <FaPlus /> {t.dashboardNewApp}
-              </button>
+              </Link>
             </div>
             <div className="space-y-4">
               {loading ? (
