@@ -137,6 +137,9 @@ const translations = {
     adminDescription: 'Descriere',
     adminPrice: 'Preț (MDL)',
     adminDuration: 'Durată (min)',
+    doctorAppointmentsToday: 'Programări azi',
+    doctorAllAppointments: 'Toate programările mele',
+    doctorClient: 'Client',
   },
   ru: {
     heroTitle: 'Добро пожаловать в DVRVET',
@@ -276,6 +279,9 @@ const translations = {
     adminDescription: 'Описание',
     adminPrice: 'Цена (MDL)',
     adminDuration: 'Длительность (мин)',
+    doctorAppointmentsToday: 'Записи сегодня',
+    doctorAllAppointments: 'Все мои записи',
+    doctorClient: 'Клиент',
   },
   en: {
     heroTitle: 'Welcome to DVRVET',
@@ -415,6 +421,9 @@ const translations = {
     adminDescription: 'Description',
     adminPrice: 'Price (MDL)',
     adminDuration: 'Duration (min)',
+    doctorAppointmentsToday: 'Appointments today',
+    doctorAllAppointments: 'All my appointments',
+    doctorClient: 'Client',
   }
 }
 

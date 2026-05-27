@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import Admin from './pages/Admin'
 import Appointments from './pages/Appointments'
 import ProtectedRoute from './components/ProtectedRoute'
+import DoctorDashboard from './pages/DoctorDashboard'
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
         <Route path="/admin" element={
           <ProtectedRoute>
             <Admin />
+          </ProtectedRoute>
+        } />
+        <Route path="/doctor-dashboard" element={
+          <ProtectedRoute>
+            <DoctorDashboard />
           </ProtectedRoute>
         } />
       </Routes>

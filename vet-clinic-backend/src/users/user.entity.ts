@@ -21,6 +21,9 @@ export class User {
   role: string;
 
   @Column({ nullable: true })
+  doctorId: number;
+
+  @Column({ nullable: true })
   phone: string;
 
   @CreateDateColumn()

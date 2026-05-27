@@ -28,6 +28,13 @@ export class AppointmentsService {
     });
   }
 
+  async findByDoctor(doctorId: number): Promise<Appointment[]> {
+   return this.appointmentsRepository.find({
+     where: { doctorId },
+     relations: { user: true, pet: true, service: true },
+    });
+  }
+
   async findById(id: number): Promise<Appointment> {
     return this.appointmentsRepository.findOne({
       where: { id },

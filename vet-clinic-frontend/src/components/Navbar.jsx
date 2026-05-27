@@ -31,30 +31,36 @@ function Navbar() {
           <Link to="/" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navHome}</Link>
 
           {user ? (
-  <>
-    <Link to="/dashboard" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navDashboard}</Link>
-    <Link to="/appointments" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navAppointments}</Link>
-    {user.role === 'admin' && (
-      <Link to="/admin" className="bg-emerald-700 dark:bg-emerald-600 text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-800 text-sm">
-        {t.navAdmin}
-      </Link>
-    )}
-    <span className="text-emerald-200 text-sm">{t.navHello}, {user.firstName}!</span>
-    <button
-      onClick={handleLogout}
-      className="bg-white dark:bg-red-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-red-600 flex items-center gap-2"
-    >
-      <FaSignOutAlt /> {t.navLogout}
-    </button>
-  </>
-) : (
-  <>
-    <Link to="/login" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navLogin}</Link>
-    <Link to="/register" className="bg-white dark:bg-emerald-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-600 border border-transparent dark:border-emerald-400">
-      {t.navRegister}
-    </Link>
-  </>
-)}
+            <>
+              {user.role === 'doctor' ? (
+                <Link to="/doctor-dashboard" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navDashboard}</Link>
+              ) : (
+                <>
+                  <Link to="/dashboard" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navDashboard}</Link>
+                  <Link to="/appointments" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navAppointments}</Link>
+                </>
+              )}
+              {user.role === 'admin' && (
+                <Link to="/admin" className="bg-emerald-700 dark:bg-emerald-600 text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-800 text-sm">
+                  {t.navAdmin}
+                </Link>
+              )}
+              <span className="text-emerald-200 text-sm">{t.navHello}, {user.firstName}!</span>
+              <button
+                onClick={handleLogout}
+                className="bg-white dark:bg-red-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-red-600 flex items-center gap-2"
+              >
+                <FaSignOutAlt /> {t.navLogout}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navLogin}</Link>
+              <Link to="/register" className="bg-white dark:bg-emerald-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-600 border border-transparent dark:border-emerald-400">
+                {t.navRegister}
+              </Link>
+            </>
+          )}
 
           <div className="flex gap-1 bg-emerald-600 dark:bg-emerald-500 rounded-full px-1 py-1">
             {['ro', 'ru', 'en'].map(lang => (
@@ -93,30 +99,32 @@ function Navbar() {
           <Link to="/" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">{t.navHome}</Link>
 
           {user ? (
-               <>
-                <Link to="/dashboard" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navDashboard}</Link>
-                <Link to="/appointments" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navAppointments}</Link>
-         {user.role === 'admin' && (
-             <Link to="/admin" className="bg-emerald-700 dark:bg-emerald-600 text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-800 text-sm">
-              {t.navAdmin}
-                </Link>
-               )}
-             <span className="text-emerald-200 text-sm">{t.navHello}, {user.firstName}!</span>
-              <button
-              onClick={handleLogout}
-              className="bg-white dark:bg-red-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-red-600 flex items-center gap-2"
-                     >
-                         <FaSignOutAlt /> {t.navLogout}
-                  </button>
-                </>
-                ) : (
+            <>
+              {user.role === 'doctor' ? (
+                <Link to="/doctor-dashboard" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">{t.navDashboard}</Link>
+              ) : (
                 <>
-                <Link to="/login" className="hover:text-emerald-200 dark:hover:text-emerald-400">{t.navLogin}</Link>
-                <Link to="/register" className="bg-white dark:bg-emerald-500 text-emerald-500 dark:text-white px-4 py-1 rounded-full font-semibold hover:bg-emerald-50 dark:hover:bg-emerald-600 border border-transparent dark:border-emerald-400">
-                {t.navRegister}
-                 </Link>
+                  <Link to="/dashboard" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">{t.navDashboard}</Link>
+                  <Link to="/appointments" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">{t.navAppointments}</Link>
                 </>
-                  )}
+              )}
+              {user.role === 'admin' && (
+                <Link to="/admin" onClick={() => setMenuOpen(false)} className="bg-emerald-700 text-white px-4 py-1 rounded-full font-semibold text-center">
+                  {t.navAdmin}
+                </Link>
+              )}
+              <button onClick={handleLogout} className="bg-white text-emerald-500 px-4 py-1 rounded-full font-semibold text-left flex items-center gap-2">
+                <FaSignOutAlt /> {t.navLogout}
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" onClick={() => setMenuOpen(false)} className="hover:text-emerald-200">{t.navLogin}</Link>
+              <Link to="/register" onClick={() => setMenuOpen(false)} className="bg-white text-emerald-500 px-4 py-1 rounded-full font-semibold text-center hover:bg-emerald-50">
+                {t.navRegister}
+              </Link>
+            </>
+          )}
 
           <div className="flex gap-1 bg-emerald-600 rounded-full px-1 py-1 w-fit">
             {['ro', 'ru', 'en'].map(lang => (

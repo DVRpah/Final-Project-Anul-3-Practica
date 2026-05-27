@@ -25,4 +25,7 @@ export class Doctor {
 
   @Column({ default: true })
   isActive: boolean;
+
+  @Column({ nullable: true })
+  userId: number;
 }

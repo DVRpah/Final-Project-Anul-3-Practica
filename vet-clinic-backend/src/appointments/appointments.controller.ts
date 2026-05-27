@@ -15,6 +15,11 @@ export class AppointmentsController {
     return this.appointmentsService.findByUser(userId);
   }
 
+  @Get('doctor/:doctorId')
+  findByDoctor(@Param('doctorId') doctorId: number) {
+    return this.appointmentsService.findByDoctor(doctorId);
+}
+
   @Get(':id')
   findOne(@Param('id') id: number) {
     return this.appointmentsService.findById(id);

@@ -24,7 +24,7 @@ export class AuthService {
     });
 
     const token = this.jwtService.sign({ sub: user.id, email: user.email, role: user.role });
-    return { token, user: { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role } };
+    return { token, user: { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, doctorId: user.doctorId } };
   }
 
   async login(email: string, password: string) {
@@ -35,6 +35,6 @@ export class AuthService {
     if (!isMatch) throw new UnauthorizedException('Email sau parolă incorectă');
 
     const token = this.jwtService.sign({ sub: user.id, email: user.email, role: user.role });
-    return { token, user: { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role } };
+    return { token, user: { id: user.id, firstName: user.firstName, lastName: user.lastName, email: user.email, role: user.role, doctorId: user.doctorId } };
   }
 }
