@@ -24,6 +24,9 @@ export class Pet {
   @Column({ nullable: true })
   notes: string;
 
+  @Column({ nullable: true, type: 'text' })
+  image: string;
+
   @ManyToOne(() => User)
   @JoinColumn({ name: 'userId' })
   owner: User;
