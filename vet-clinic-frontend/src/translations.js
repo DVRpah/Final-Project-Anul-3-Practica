@@ -34,7 +34,7 @@ const translations = {
     doctor1: 'Dr. Alexandru Popescu',
     doctor1Role: 'Medic Generalist',
     doctor1Desc: '10 ani experiență în medicina veterinară generală.',
-    doctor2: 'Dr. Maria Ionescu',
+    doctor2: 'Dr. Elena Ionescu',
     doctor2Role: 'Chirurg Veterinar',
     doctor2Desc: 'Specializată în chirurgie și ortopedie veterinară.',
     doctor3: 'Dr. Ion Mihai',

@@ -9,6 +9,7 @@ import Admin from './pages/Admin'
 import Appointments from './pages/Appointments'
 import ProtectedRoute from './components/ProtectedRoute'
 import DoctorDashboard from './pages/DoctorDashboard'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <DoctorDashboard />
           </ProtectedRoute>
         } />
+        <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
     </BrowserRouter>
