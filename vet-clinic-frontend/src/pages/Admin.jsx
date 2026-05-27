@@ -2,8 +2,13 @@ import { useState, useEffect } from 'react'
 import { FaUsers, FaCalendarAlt, FaUserMd, FaDog, FaPlus, FaTimes } from 'react-icons/fa'
 import { appointmentsService, doctorsService, servicesService } from '../services/api'
 import api from '../services/api'
+import { useApp } from '../context/AppContext'
+import translations from '../translations'
 
 function Admin() {
+  const { language } = useApp()
+  const t = translations[language]
+
   const [appointments, setAppointments] = useState([])
   const [doctors, setDoctors] = useState([])
   const [services, setServices] = useState([])
@@ -21,13 +26,6 @@ function Admin() {
     'confirmed': 'bg-emerald-100 text-emerald-600',
     'completed': 'bg-blue-100 text-blue-600',
     'cancelled': 'bg-red-100 text-red-600',
-  }
-
-  const statusLabels = {
-    'pending': 'În așteptare',
-    'confirmed': 'Confirmată',
-    'completed': 'Finalizată',
-    'cancelled': 'Anulată',
   }
 
   const fetchData = async () => {
@@ -78,14 +76,14 @@ function Admin() {
   }
 
   const handleDeleteDoctor = async (id) => {
-    if (window.confirm('Ștergi doctorul?')) {
+    if (window.confirm(t.adminDoctors + '?')) {
       await api.delete(`/doctors/${id}`)
       fetchData()
     }
   }
 
   const handleDeleteService = async (id) => {
-    if (window.confirm('Ștergi serviciul?')) {
+    if (window.confirm(t.adminServices + '?')) {
       await api.delete(`/services/${id}`)
       fetchData()
     }
@@ -101,8 +99,8 @@ function Admin() {
       <div className="max-w-6xl mx-auto">
 
         <div className="mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">Panou Admin</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Gestionează clinica DVRVET</p>
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-800 dark:text-white">{t.adminTitle}</h1>
+          <p className="text-gray-500 dark:text-gray-400 mt-1">{t.adminDesc}</p>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -112,7 +110,7 @@ function Admin() {
                 <FaUsers className="text-emerald-500 text-lg" />
               </div>
               <div className="text-center md:text-left">
-                <p className="text-gray-500 dark:text-gray-400 text-xs">Utilizatori</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs">{t.adminUsers}</p>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{loading ? '...' : users.length}</h3>
               </div>
             </div>
@@ -123,7 +121,7 @@ function Admin() {
                 <FaUserMd className="text-emerald-500 text-lg" />
               </div>
               <div className="text-center md:text-left">
-                <p className="text-gray-500 dark:text-gray-400 text-xs">Doctori</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs">{t.adminDoctors}</p>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{loading ? '...' : doctors.length}</h3>
               </div>
             </div>
@@ -134,7 +132,7 @@ function Admin() {
                 <FaCalendarAlt className="text-emerald-500 text-lg" />
               </div>
               <div className="text-center md:text-left">
-                <p className="text-gray-500 dark:text-gray-400 text-xs">Programări totale</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs">{t.adminAppointments}</p>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{loading ? '...' : appointments.length}</h3>
               </div>
             </div>
@@ -145,7 +143,7 @@ function Admin() {
                 <FaDog className="text-emerald-500 text-lg" />
               </div>
               <div className="text-center md:text-left">
-                <p className="text-gray-500 dark:text-gray-400 text-xs">Servicii</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs">{t.adminServices}</p>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white">{loading ? '...' : services.length}</h3>
               </div>
             </div>
@@ -156,25 +154,25 @@ function Admin() {
           {['appointments', 'doctors', 'services'].map(tab => (
             <button key={tab} onClick={() => setActiveTab(tab)}
               className={`px-4 py-2 rounded-full font-semibold text-sm transition-all ${activeTab === tab ? 'bg-emerald-500 text-white' : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700'}`}>
-              {tab === 'appointments' ? 'Programări' : tab === 'doctors' ? 'Doctori' : 'Servicii'}
+              {tab === 'appointments' ? t.adminTabAppointments : tab === 'doctors' ? t.adminTabDoctors : t.adminTabServices}
             </button>
           ))}
         </div>
 
         {activeTab === 'appointments' && (
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-            <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6">Toate programările</h2>
-            {loading ? <p className="text-gray-400 text-center">Se încarcă...</p> : (
+            <h2 className="text-xl font-bold text-gray-800 dark:text-white mb-6">{t.adminAllAppointments}</h2>
+            {loading ? <p className="text-gray-400 text-center">{t.dashboardLoading}</p> : (
               <div className="overflow-x-auto">
                 <table className="w-full">
                   <thead>
                     <tr className="text-left text-gray-500 dark:text-gray-400 text-sm border-b border-gray-200 dark:border-gray-700">
                       <th className="pb-3">Client</th>
-                      <th className="pb-3">Animal</th>
-                      <th className="pb-3">Serviciu</th>
-                      <th className="pb-3">Doctor</th>
-                      <th className="pb-3">Data</th>
-                      <th className="pb-3">Status</th>
+                      <th className="pb-3">{t.appointmentsPet}</th>
+                      <th className="pb-3">{t.appointmentsService}</th>
+                      <th className="pb-3">{t.appointmentsDoctor}</th>
+                      <th className="pb-3">{t.appointmentsDate}</th>
+                      <th className="pb-3">{t.appointmentsStatus}</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100 dark:divide-gray-700">
@@ -188,10 +186,10 @@ function Admin() {
                         <td className="py-3">
                           <select value={app.status} onChange={e => handleStatusChange(app.id, e.target.value)}
                             className={`px-2 py-1 rounded-full text-xs font-semibold border-0 cursor-pointer ${statusColors[app.status]}`}>
-                            <option value="pending">În așteptare</option>
-                            <option value="confirmed">Confirmată</option>
-                            <option value="completed">Finalizată</option>
-                            <option value="cancelled">Anulată</option>
+                            <option value="pending">{t.statusPending}</option>
+                            <option value="confirmed">{t.statusConfirmed}</option>
+                            <option value="completed">{t.statusCompleted}</option>
+                            <option value="cancelled">{t.statusCancelled}</option>
                           </select>
                         </td>
                       </tr>
@@ -206,9 +204,9 @@ function Admin() {
         {activeTab === 'doctors' && (
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">Doctori</h2>
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">{t.adminTabDoctors}</h2>
               <button onClick={() => setShowDoctorModal(true)} className="bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-emerald-600">
-                <FaPlus /> Adaugă doctor
+                <FaPlus /> {t.adminAddDoctor}
               </button>
             </div>
             <div className="space-y-3">
@@ -231,9 +229,9 @@ function Admin() {
         {activeTab === 'services' && (
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 md:p-6 shadow-sm border border-gray-200 dark:border-gray-700">
             <div className="flex justify-between items-center mb-6">
-              <h2 className="text-xl font-bold text-gray-800 dark:text-white">Servicii</h2>
+              <h2 className="text-xl font-bold text-gray-800 dark:text-white">{t.adminTabServices}</h2>
               <button onClick={() => setShowServiceModal(true)} className="bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold flex items-center gap-2 hover:bg-emerald-600">
-                <FaPlus /> Adaugă serviciu
+                <FaPlus /> {t.adminAddService}
               </button>
             </div>
             <div className="space-y-3">
@@ -258,39 +256,39 @@ function Admin() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white">Adaugă doctor</h3>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white">{t.adminAddDoctor}</h3>
               <button onClick={() => setShowDoctorModal(false)} className="text-gray-400 hover:text-gray-600"><FaTimes /></button>
             </div>
             <form onSubmit={handleAddDoctor} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Prenume</label>
+                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminFirstName}</label>
                   <input type="text" required value={newDoctor.firstName} onChange={e => setNewDoctor({...newDoctor, firstName: e.target.value})}
                     className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
                 </div>
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Nume</label>
+                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminLastName}</label>
                   <input type="text" required value={newDoctor.lastName} onChange={e => setNewDoctor({...newDoctor, lastName: e.target.value})}
                     className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
                 </div>
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Specializare</label>
+                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminSpecialization}</label>
                 <input type="text" required value={newDoctor.specialization} onChange={e => setNewDoctor({...newDoctor, specialization: e.target.value})}
                   className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Email</label>
+                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminEmail}</label>
                 <input type="email" value={newDoctor.email} onChange={e => setNewDoctor({...newDoctor, email: e.target.value})}
                   className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Telefon</label>
+                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminPhone}</label>
                 <input type="text" value={newDoctor.phone} onChange={e => setNewDoctor({...newDoctor, phone: e.target.value})}
                   className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
               </div>
               <button type="submit" className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600">
-                Adaugă doctor
+                {t.adminAddDoctor}
               </button>
             </form>
           </div>
@@ -301,34 +299,34 @@ function Admin() {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
           <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 w-full max-w-md">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white">Adaugă serviciu</h3>
+              <h3 className="text-xl font-bold text-gray-800 dark:text-white">{t.adminAddService}</h3>
               <button onClick={() => setShowServiceModal(false)} className="text-gray-400 hover:text-gray-600"><FaTimes /></button>
             </div>
             <form onSubmit={handleAddService} className="space-y-4">
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Nume serviciu</label>
+                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminServiceName}</label>
                 <input type="text" required value={newService.name} onChange={e => setNewService({...newService, name: e.target.value})}
                   className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
               </div>
               <div>
-                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Descriere</label>
+                <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminDescription}</label>
                 <textarea value={newService.description} onChange={e => setNewService({...newService, description: e.target.value})}
                   className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" rows={2} />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Preț (MDL)</label>
+                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminPrice}</label>
                   <input type="number" required value={newService.price} onChange={e => setNewService({...newService, price: e.target.value})}
                     className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
                 </div>
                 <div>
-                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Durată (min)</label>
+                  <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">{t.adminDuration}</label>
                   <input type="number" value={newService.duration} onChange={e => setNewService({...newService, duration: e.target.value})}
                     className="w-full border border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-xl px-4 py-2 focus:outline-none focus:border-emerald-500" />
                 </div>
               </div>
               <button type="submit" className="w-full bg-emerald-500 text-white py-2 rounded-xl font-semibold hover:bg-emerald-600">
-                Adaugă serviciu
+                {t.adminAddService}
               </button>
             </form>
           </div>
